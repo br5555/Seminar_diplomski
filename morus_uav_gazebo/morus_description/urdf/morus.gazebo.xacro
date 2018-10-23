@@ -23,7 +23,7 @@
 
 <gazebo>
 
-	    <plugin name="base_link_drag_lift" filename="libLiftDragPlugin.so">
+	    <plugin name="base_link_drag_lift_plus_x" filename="libLiftDragPlugin.so">
 	      <a0>0.0</a0>
 	      <cla>0.0</cla>
 	      <cda>0.6417112299</cda>
@@ -36,6 +36,92 @@
 	      <area>0.48</area>
 	      <air_density>1.2041</air_density>
 	      <forward>1 0 0</forward>
+	      <upward>-1 0 0</upward>
+	      <link_name>base_link</link_name>
+	</plugin>
+	
+	<plugin name="base_link1_drag_lift_plus_y" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.48</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 1 0</forward>
+	      <upward>0 -1 0</upward>
+	      <link_name>base_link</link_name>
+	</plugin>
+	
+	<plugin name="base_link1_drag_lift_plus_z" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.48</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 0 1</forward>
+	      <upward>0 0 -1</upward>
+	      <link_name>base_link</link_name>
+	</plugin>
+	
+	
+		    <plugin name="base_link_drag_lift_minus_x" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.48</area>
+	      <air_density>1.2041</air_density>
+	      <forward>-1 0 0</forward>
+	      <upward>1 0 0</upward>
+	      <link_name>base_link</link_name>
+	</plugin>
+	
+	<plugin name="base_link1_drag_lift_minus_y" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.48</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 -1 0</forward>
+	      <upward>0 1 0</upward>
+	      <link_name>base_link</link_name>
+	</plugin>
+	
+	<plugin name="base_link1_drag_lift_minus_z" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.48</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 0 -1</forward>
 	      <upward>0 0 1</upward>
 	      <link_name>base_link</link_name>
 	</plugin>
@@ -156,7 +242,7 @@
 	      </control_joint_name>
 	      <control_joint_rad_to_cl>0.0</control_joint_rad_to_cl-->
 	</plugin>
-	    <plugin name="movable_mass_0_drag_lift" filename="libLiftDragPlugin.so">
+	    <plugin name="movable_mass_0_drag_lift_plus_x" filename="libLiftDragPlugin.so">
 	      <a0>0.0</a0>
 	      <cla>0.0</cla>
 	      <cda>0.6417112299</cda>
@@ -169,11 +255,11 @@
 	      <area>0.0384</area>
 	      <air_density>1.2041</air_density>
 	      <forward>1 0 0</forward>
-	      <upward>0 0 1</upward>
+	      <upward>-1 0 0</upward>
 	      <link_name>movable_mass_0</link_name>
 	</plugin>
 		
-	    <plugin name="movable_mass_1_drag_lift" filename="libLiftDragPlugin.so">
+	    <plugin name="movable_mass_1_drag_lift_plus_x" filename="libLiftDragPlugin.so">
 	      <a0>0.0</a0>
 	      <cla>0.0</cla>
 	      <cda>0.6417112299</cda>
@@ -186,11 +272,11 @@
 	      <area>0.0384</area>
 	      <air_density>1.2041</air_density>
 	      <forward>1 0 0</forward>
-	      <upward>0 0 1</upward>
+	      <upward>-1 0 0</upward>
 	      <link_name>movable_mass_1</link_name>
 	</plugin>
 		
-	    <plugin name="movable_mass_2_drag_lift" filename="libLiftDragPlugin.so">
+	    <plugin name="movable_mass_2_drag_lift_plus_x" filename="libLiftDragPlugin.so">
 	      <a0>0.0</a0>
 	      <cla>0.0</cla>
 	      <cda>0.6417112299</cda>
@@ -203,11 +289,11 @@
 	      <area>0.0384</area>
 	      <air_density>1.2041</air_density>
 	      <forward>1 0 0</forward>
-	      <upward>0 0 1</upward>
+	      <upward>-1 0 0</upward>
 	      <link_name>movable_mass_2</link_name>
 	</plugin>
 		
-	    <plugin name="movable_mass_3_drag_lift" filename="libLiftDragPlugin.so">
+	    <plugin name="movable_mass_3_drag_lift_plus_x" filename="libLiftDragPlugin.so">
 	      <a0>0.0</a0>
 	      <cla>0.0</cla>
 	      <cda>0.6417112299</cda>
@@ -220,9 +306,213 @@
 	      <area>0.0384</area>
 	      <air_density>1.2041</air_density>
 	      <forward>1 0 0</forward>
-	      <upward>0 0 1</upward>
+	      <upward>-1 0 0</upward>
 	      <link_name>movable_mass_3</link_name>
 	</plugin>
+	<plugin name="movable_mass_0_drag_lift_minus_x" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>-1 0 0</forward>
+	      <upward>1 0 0</upward>
+	      <link_name>movable_mass_0</link_name>
+	</plugin>
+		
+	    <plugin name="movable_mass_1_drag_lift_minus_x" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>-1 0 0</forward>
+	      <upward>1 0 0</upward>
+	      <link_name>movable_mass_1</link_name>
+	</plugin>
+		
+	    <plugin name="movable_mass_2_drag_lift_minus_x" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>-1 0 0</forward>
+	      <upward>1 0 0</upward>
+	      <link_name>movable_mass_2</link_name>
+	</plugin>
+		
+	    <plugin name="movable_mass_3_drag_lift_minus_x" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>-1 0 0</forward>
+	      <upward>1 0 0</upward>
+	      <link_name>movable_mass_3</link_name>
+	</plugin>
+	
+	<plugin name="movable_mass_0_drag_lift_plus_y" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 1  0</forward>
+	      <upward>0 -1  0</upward>
+	      <link_name>movable_mass_0</link_name>
+	</plugin>
+		
+	    <plugin name="movable_mass_1_drag_lift_plus_y" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 1  0</forward>
+	      <upward>0 -1  0</upward>
+	      <link_name>movable_mass_1</link_name>
+	</plugin>
+		
+	    <plugin name="movable_mass_2_drag_lift_plus_y" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 1  0</forward>
+	      <upward>0 -1  0</upward>
+	      <link_name>movable_mass_2</link_name>
+	</plugin>
+		
+	    <plugin name="movable_mass_3_drag_lift_plus_y" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 1  0</forward>
+	      <upward>0 -1  0</upward>
+	      <link_name>movable_mass_3</link_name>
+	</plugin>
+	
+	<plugin name="movable_mass_0_drag_lift_minus_y" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 -1  0</forward>
+	      <upward>0 1  0</upward>
+	      <link_name>movable_mass_0</link_name>
+	</plugin>
+		
+	    <plugin name="movable_mass_1_drag_lift_minus_y" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 -1  0</forward>
+	      <upward>0 1  0</upward>
+	      <link_name>movable_mass_1</link_name>
+	</plugin>
+		
+	    <plugin name="movable_mass_2_drag_lift_minus_y" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 -1  0</forward>
+	      <upward>0 1  0</upward>
+	      <link_name>movable_mass_2</link_name>
+	</plugin>
+		
+	    <plugin name="movable_mass_3_drag_lift_minus_y" filename="libLiftDragPlugin.so">
+	      <a0>0.0</a0>
+	      <cla>0.0</cla>
+	      <cda>0.6417112299</cda>
+	      <cma>-1.8</cma>
+	      <alpha_stall>0.0</alpha_stall>
+	      <cla_stall>0.0</cla_stall>
+	      <cda_stall>-0.9233984055</cda_stall>
+	      <cma_stall>0</cma_stall>
+	      <cp>0.00 0.0 0.0</cp>
+	      <area>0.0384</area>
+	      <air_density>1.2041</air_density>
+	      <forward>0 -1  0</forward>
+	      <upward>0 1  0</upward>
+	      <link_name>movable_mass_3</link_name>
+	</plugin>
+	
 </gazebo>
 
 
