@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="namespace" default="/morus"/>
+    <arg name="attitude_ctrl_flag" default="true"/>
+
+    <!-- attitude MPC control -->
+    <node pkg="morus_control" type="mass_ctl_attitude_mpc_node" name="mass_ctl_attitude_mpc"
+          output="screen" ns="$(arg namespace)">
+    </node>
+
+</launch>
+
+

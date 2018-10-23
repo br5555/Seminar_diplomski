@@ -1,0 +1,8 @@
+Header header
+
+morus_uav_ros_msgs/PidStatus roll
+morus_uav_ros_msgs/PidStatus roll_rate
+morus_uav_ros_msgs/PidStatus pitch
+morus_uav_ros_msgs/PidStatus pitch_rate
+morus_uav_ros_msgs/PidStatus yaw
+morus_uav_ros_msgs/PidStatus yaw_rate

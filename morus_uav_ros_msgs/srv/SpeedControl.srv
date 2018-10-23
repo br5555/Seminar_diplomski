@@ -1,0 +1,4 @@
+uint8 speed_control		# 1-on, 0-off
+int8 motor_id          # gas motor id: 1 - front, 2- right, 3 - back, 4- left, 0 - all motors
+---
+bool ok

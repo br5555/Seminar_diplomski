@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+
+
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <arg name="enable_logging" default="false"/>
+  <arg name="enable_ground_truth" default="true"/>
+  <arg name="log_file" default="morus"/>
+  <arg name="namespace" default="/morus"/>
+
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <!-- init the gazebo simulation -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find morus_gazebo)/worlds/morus.world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+
+  <!-- create a multirotor in gazebo environment -->
+  <include file="$(find morus_gazebo)/launch/spawn_morus_multirotor.launch"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+  output="screen" ns="$(arg namespace)"  args="joint_state_controller
+  	  movable_mass_0_position_controller
+  	  movable_mass_1_position_controller 
+  	  movable_mass_2_position_controller 
+  	  movable_mass_3_position_controller">
+  <remap from="/robot_description" to="$(arg namespace)/robot_description"/>
+  </node>
+  
+  <!-- feedback information -->
+  <node pkg="morus_control" type="mav_state_pub.py" name="mav_state_pub" output="screen"  ns="$(arg namespace)">
+  	<remap from="imu" to="ahrs" />
+  </node>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen"  ns="$(arg namespace)">
+    <!--remap from="/joint_states" to="$(arg namespace)/joint_states"/-->
+    <remap from="/robot_description" to="$(arg namespace)/robot_description"/>
+  </node>
+
+  <!-- MOVING MASS CONTROLLER OF ROTATION -->
+  <node pkg="morus_control" type="mass_ctl_attitude_mpc.py" name="mass_ctl_attitude_mpc" output="screen"  ns="$(arg namespace)">
+  </node>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <!-- moving masses parameters -->
+  <rosparam file="$(find morus_control)/config/morus_control.yaml" command="load"/>
+
+  <!-- IC CONTROL OF HEIGHT AND ORIENTATION "yaw" -->
+  <node pkg="morus_control" type="height_yaw_ctl.py" name="height_ctl" output="screen"  ns="$(arg namespace)">
+        <param name="gm_attitude_ctl" value="0"/>
+  </node>
+
+  <!-- create a multirotor in gazebo environment -->
+  <!--
+  <include file="$(find mav_linear_mpc)/launch/mav_linear_mpc_sim.launch">
+	<param name="mav_name" value="$(arg namespace)"/>
+  </include>
+  -->
+
+  <node pkg="morus_control" type="float2gmStatus.py" name="translator" ns="$(arg namespace)"/>
+
+</launch>
+
+
