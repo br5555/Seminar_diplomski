@@ -181,13 +181,13 @@ namespace mav_control_attitude {
         }
 
         //Solver initialization
-        set_defaults(); // Set basic algorithm parameters.
-        setup_indexing();
-        settings_ = settings;
-        params_ = params;
-        settings_.resid_tol = 0.0001;
-        settings_.verbose = 0; // don't show every outcome of computation
-        settings_.max_iters = 8;  // reduce the maximum iteration count, to assure quickness over accuracy.
+        // YOLO set_defaults(); // Set basic algorithm parameters.
+        // YOLO setup_indexing();
+        // YOLO settings_ = settings;
+        // YOLO params_ = params;
+        // YOLO settings_.resid_tol = 0.0001;
+        // YOLO settings_.verbose = 0; // don't show every outcome of computation
+        // YOLO settings_.max_iters = 8;  // reduce the maximum iteration count, to assure quickness over accuracy.
         //cout << "A" << endl;
         //cout << model_A_ << endl;
         //cout << "B" << endl;
@@ -196,12 +196,9 @@ namespace mav_control_attitude {
         //cout << model_Bd_ << endl;
         
         // parameters A, B, Bd for CVXGEN set
-        Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.A), kStateSize, kStateSize) =        model_A_;
-        this->mpc_cost1->set_A(model_A_);
-        Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.B), kStateSize, kInputSize) =        model_B_;
-        this->mpc_cost1->set_B(model_B_);
-        Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.Bd), kStateSize, kDisturbanceSize) = model_Bd_;
-        this->mpc_cost1->set_Bd(model_Bd_);
+        // YOLO Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.A), kStateSize, kStateSize) =        model_A_;
+        // YOLO Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.B), kStateSize, kInputSize) =        model_B_;
+        // YOLO Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.Bd), kStateSize, kDisturbanceSize) = model_Bd_;
 
         initialized_parameters_ = true;
         ROS_INFO("Linear MPC attitude controller: initialized correctly");
@@ -209,12 +206,9 @@ namespace mav_control_attitude {
 
     void MPCAttitudeController::applyParameters()
     {
-      /// dynamic init of controller parameters
+      
 
-      Eigen::Matrix<double, kStateSize, kStateSize> Q;
-      Eigen::Matrix<double, kStateSize, kStateSize> Q_final;
-      Eigen::MatrixXd R;
-      Eigen::MatrixXd R_delta;
+
 
       // init the cost matrices
       Q.setZero();
@@ -280,14 +274,10 @@ namespace mav_control_attitude {
       //cout << "R_delta" << endl;
       //cout << 100*R_delta << endl;
       // parameters Q, P, R, R_delta for CVXGEN set
-      Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.Q), kStateSize, kStateSize) = Q;
-      this->mpc_cost1->set_Q(Q);
-      Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.P), kStateSize, kStateSize) = Q_final;
-      this->mpc_cost1->set_P(Q_final);
-      Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.R), kInputSize, kInputSize) = R;
-      this->mpc_cost1->set_R(R);
-      Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.R_delta), kInputSize, kInputSize) = 100*R_delta;
-      this->mpc_cost1->set_R_delta(100*R_delta);
+      // YOLO Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.Q), kStateSize, kStateSize) = Q;
+      // YOLO Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.P), kStateSize, kStateSize) = Q_final;
+      // YOLO Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.R), kInputSize, kInputSize) = R;
+      // YOLO Eigen::Map<Eigen::MatrixXd>(const_cast<double*>(params_.R_delta), kInputSize, kInputSize) = 100*R_delta;
 
       // constraints for CVXGEN solver set
       // state constraints TODO how to make work
@@ -310,40 +300,45 @@ namespace mav_control_attitude {
       //cout << "constraint " << endl;
       //cout << lm_/2 - 0.01 << endl; 
       // input constraints
-      for(int i = 0; i< 48; i+=4){
-          this->problem.SetParameterLowerBound(u1,i, -(lm_/2 - 0.01));
-          this->problem.SetParameterUpperBound(u1,i, (lm_/2 - 0.01));
-          this->problem.SetParameterLowerBound(u1,i+1, -(lm_/2 - 0.01));
-          this->problem.SetParameterUpperBound(u1,i+1, (lm_/2 - 0.01));
-      }
-      
-      params_.u_max[0] = lm_/2 - 0.01;
-      params_.u_max[1] = lm_/2 - 0.01;
-      params_.u_min[0] = -params_.u_max[0];
-      params_.u_min[1] = -params_.u_max[1];
+      // YOLO params_.u_max[0] = lm_/2 - 0.01;
+      // YOLO params_.u_max[1] = lm_/2 - 0.01;
+      // YOLO params_.u_min[0] = -params_.u_max[0];
+      // YOLO params_.u_min[1] = -params_.u_max[1];
+        
+      u_max(0,0) =  lm_/2 - 0.01; 
+      u_max(1,0) =  lm_/2 - 0.01;
+      u_min(0,0) =  -u_max(0,0); 
+      u_min(1,0) =  -u_max(1,0); 
+      // YOLO params_.du_max[0] = sampling_time_ * 2; // constraint of 2 m/s
+      // YOLO params_.du_max[1] = sampling_time_ * 2;
+      // YOLO params_.du_min[0] = -params_.du_max[0];
+      // YOLO params_.du_min[1] = -params_.du_max[1];
 
-      params_.du_max[0] = sampling_time_ * 2; // constraint of 2 m/s
-      params_.du_max[1] = sampling_time_ * 2;
-      params_.du_min[0] = -params_.du_max[0];
-      params_.du_min[1] = -params_.du_max[1];
+      du_max(0,0) =  sampling_time_ * 2; 
+      du_max(1,0) =  sampling_time_ * 2;
+      du_min(0,0) =  -du_max(0,0); 
+      du_min(1,0) =  -du_max(1,0); 
 
       if (combined_control_mpc_use_){
-        params_.u_max[2] = 50;
-        params_.u_max[3] = 50;
-        params_.u_min[2] = -params_.u_max[2];
-        params_.u_min[3] = -params_.u_max[3];
-
-        params_.du_max[2] = 1;
-        params_.du_max[3] = 1;
-        params_.du_min[2] = -params_.du_max[2];
-        params_.du_min[3] = -params_.du_max[3];
+        // YOLO params_.u_max[2] = 50;
+        // YOLO params_.u_max[3] = 50;
+        // YOLO params_.u_min[2] = -params_.u_max[2];
+        // YOLO params_.u_min[3] = -params_.u_max[3];
         
-        for(int i = 0; i< 48; i+=4){
-          this->problem.SetParameterLowerBound(u1,i+2, -50);
-          this->problem.SetParameterUpperBound(u1,i+2, 50);
-          this->problem.SetParameterLowerBound(u1,i+3, -50);
-          this->problem.SetParameterUpperBound(u1,i+3, 50);
-      }
+        u_max(2,0) =  50; 
+        u_max(3,0) =  50;
+        u_min(2,0) =  -u_max(2,0); 
+        u_min(3,0) =  -u_max(3,0);
+        
+        // YOLO params_.du_max[2] = 1;
+        // YOLO params_.du_max[3] = 1;
+        // YOLO params_.du_min[2] = -params_.du_max[2];
+        // YOLO params_.du_min[3] = -params_.du_max[3];
+        
+        du_max(2,0) =  1; 
+        du_max(3,0) =  1;
+        du_min(2,0) =  -du_max(2,0); 
+        du_min(3,0) =  -du_max(3,0);
       }
 
 
@@ -432,8 +427,7 @@ namespace mav_control_attitude {
         estimated_disturbances_ -= K_I_MPC * angle_error_integration_;
       };
 
-      Eigen::Matrix<double, kStateSize, 1> target_state, current_state, error_states;
-      Eigen::Matrix<double, kInputSize, 1> target_input;
+
 
       // creating the "target_state" and "current_state" variables
       target_state.setZero();
@@ -494,45 +488,42 @@ namespace mav_control_attitude {
       
       // fill in the structure for CVXGEN solver - x_ss[t], u_ss, x_0, d, u_prev
       for (int i = 1; i < 11; i++) {
-        Eigen::Map<Eigen::Matrix<double, kStateSize, 1>>(const_cast<double*>(params_.x_ss[i])) = target_state;
+        // YOLO Eigen::Map<Eigen::Matrix<double, kStateSize, 1>>(const_cast<double*>(params_.x_ss[i])) = target_state;
       }
-      this->mpc_cost1->set_x_ss(params_.x_ss);
       for (int i = 0; i < 10; i++) {
-        Eigen::Map<Eigen::Matrix<double, kInputSize, 1>>(const_cast<double*>(params_.u_ss[i])) = target_input;
+        // YOLO Eigen::Map<Eigen::Matrix<double, kInputSize, 1>>(const_cast<double*>(params_.u_ss[i])) = target_input;
       }
-      this->mpc_cost1->set_u_ss(params_.u_ss);
       //cout << "x0 current state" << endl;
       //cout << current_state << endl;
       //cout << "d estimated dsturbance " << endl;
       //cout << estimated_disturbances_ << endl;
       //cout << "u previous" << endl;
       //cout << control_commands_temp_ << endl;
-      Eigen::Map<Eigen::Matrix<double, kStateSize,       1>>(const_cast<double*>(params_.x_0))    = current_state;
-      Eigen::Map<Eigen::Matrix<double, kDisturbanceSize, 1>>(const_cast<double*>(params_.d  ))    = estimated_disturbances_;
-      Eigen::Map<Eigen::Matrix<double, kInputSize,       1>>(const_cast<double*>(params_.u_prev)) = control_commands_temp_;
-      this->mpc_cost1->set_x0_(current_state);
-      this->mpc_cost1->set_disturbance(estimated_disturbances_);
-      this->mpc_cost1->set_u_prev(control_commands_temp_);
-      //***********************************************************************************
+      // YOLO Eigen::Map<Eigen::Matrix<double, kStateSize,       1>>(const_cast<double*>(params_.x_0))    = current_state;
+      // YOLO Eigen::Map<Eigen::Matrix<double, kDisturbanceSize, 1>>(const_cast<double*>(params_.d  ))    = estimated_disturbances_;
+      // YOLO Eigen::Map<Eigen::Matrix<double, kInputSize,       1>>(const_cast<double*>(params_.u_prev)) = control_commands_temp_;
+
       // fill the extern structure for the solver
-      settings = settings_;
-      params = params_;
+      // YOLO settings = settings_;
+      // YOLO params = params_;
 
       // solve the problem quadratic problem
-      solver_status_ = (int) solve();
+      // YOLO solver_status_ = (int) solve();
       // publish the solver status
       std_msgs::Int64 solver_status_msg;
-      solver_status_msg.data = solver_status_;
+      solver_status_msg.data = 1; // YOLO solver_status_;
       MPC_solver_status_pub_.publish(solver_status_msg);
 
       control_commands_temp_.setZero(); // reset the msg for input signals
-      if (solver_status_ >= 0){ // solution found
+      int YOLO = 1;
+      // YOLO if (solver_status_ >= 0){ // solution found
+      if (YOLO >= 0){
         if (combined_control_mpc_use_) {
           // CC_MPC has 4 input variables
-          control_commands_temp_ << vars.u_0[0], vars.u_0[1], vars.u_0[2], vars.u_0[3];
+          // YOLO control_commands_temp_ << vars.u_0[0], vars.u_0[1], vars.u_0[2], vars.u_0[3];
         } else {
           // MM_MPC has 2 input variables
-          control_commands_temp_ << vars.u_0[0], vars.u_0[1]; // fill the solution for problem
+          // YOLO control_commands_temp_ << vars.u_0[0], vars.u_0[1]; // fill the solution for problem
         }
       }
       else { // solution not found -> LQR working
